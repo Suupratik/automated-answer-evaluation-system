@@ -1,11 +1,15 @@
 import pandas as pd
 import re
-import string
+import nltk
 from nltk.corpus import stopwords
 from nltk.tokenize import RegexpTokenizer
 
-
-STOP_WORDS = set(stopwords.words("english"))
+# Ensure stopwords are available (for Streamlit Cloud)
+try:
+    STOP_WORDS = set(stopwords.words("english"))
+except LookupError:
+    nltk.download("stopwords")
+    STOP_WORDS = set(stopwords.words("english"))
 
 def clean_text(text):
     if pd.isna(text):
